@@ -61,6 +61,7 @@ void ofxDatGui::init()
     mWidthChanged = false;
     mThemeChanged = false;
     mAlignmentChanged = false;
+    mMouseDown = false;
     mAlignment = ofxDatGuiAlignment::LEFT;
     mAlpha = 1.0f;
     mWidth = ofxDatGuiComponent::getTheme()->layout.width;
