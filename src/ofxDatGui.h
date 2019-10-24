@@ -96,6 +96,12 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         ofxDatGuiValuePlotter* getValuePlotter(string label, string folder = "");
         ofxDatGuiFolder* getFolder(string label);
         ofxDatGuiDropdown* getDropdown(string label);
+        
+        // fy
+        vector<ofxDatGuiComponent*> items;
+        ofxDatGuiComponent* getComponent(string key);
+        ofxDatGuiComponent* getComponent(string key, string fl);
+        ofxDatGuiComponent* getComponent(ofxDatGuiType type, string label);
     
     private:
     
@@ -124,7 +130,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         ofxDatGuiFooter* mGuiFooter;
         ofxDatGuiTheme* mTheme;
         ofxDatGuiAlignment mAlignment;
-        vector<ofxDatGuiComponent*> items;
+        //vector<ofxDatGuiComponent*> items;
         vector<ofxDatGuiComponent*> trash;
         static ofxDatGui* mActiveGui;
         static vector<ofxDatGui*> mGuis;
@@ -141,8 +147,6 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         void onUpdate(ofEventArgs &e);
         void onWindowResized(ofResizeEventArgs &e);
     
-        ofxDatGuiComponent* getComponent(string key);
-        ofxDatGuiComponent* getComponent(ofxDatGuiType type, string label);
         void onInternalEventCallback(ofxDatGuiInternalEvent e);
         void onButtonEventCallback(ofxDatGuiButtonEvent e);
         void onToggleEventCallback(ofxDatGuiToggleEvent e);

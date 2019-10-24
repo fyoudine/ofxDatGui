@@ -663,6 +663,39 @@ ofxDatGuiComponent* ofxDatGui::getComponent(ofxDatGuiType type, string label)
     return NULL;
 }
 
+ofxDatGuiComponent* ofxDatGui::getComponent(string label, string fl)
+{
+    ofxDatGuiComponent* o = nullptr;
+    
+    if (fl != ""){
+        ofxDatGuiFolder* f = static_cast<ofxDatGuiFolder*>(getComponent(ofxDatGuiType::FOLDER, fl));
+        if (f) {
+            // iterate over component's children and return the first match we find //
+            for (int j=0; j<f->children.size(); j++) {
+                if (f->children[j]->is(label)) return f->children[j];
+            }
+        }
+    }   else{
+        o = getComponent(label);
+    }
+    
+    return o;
+}
+
+
+ofxDatGuiComponent* ofxDatGui::getComponent(string label)
+{
+    for (int i=0; i<items.size(); i++) {
+        if (items[i]->is(label)) return items[i];
+        
+        // iterate over component's children and return the first match we find //
+        for (int j=0; j<items[i]->children.size(); j++) {
+            if (items[i]->children[j]->is(label)) return items[i]->children[j];
+        }
+    }
+    return nullptr;
+}
+
 /*
     event callbacks
 */

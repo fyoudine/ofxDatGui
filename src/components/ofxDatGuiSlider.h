@@ -103,6 +103,10 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
                 onInvalidMinMaxValues();
             }
         }
+        
+        float getMin() {
+            return mMin;
+        }
     
         void setMax(float max)
         {
@@ -112,6 +116,10 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
             }   else{
                 onInvalidMinMaxValues();
             }
+        }
+    
+        float getMax() {
+            return mMax;
         }
     
         void setValue(float value, bool dispatchEvent = true)
