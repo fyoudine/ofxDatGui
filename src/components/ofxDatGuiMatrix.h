@@ -307,7 +307,7 @@ class ofxDatGuiMatrix : public ofxDatGuiComponent {
         ofColor mFillColor;
         ofRectangle mMatrixRect;
         vector<ofxDatGuiMatrixButton> btns;
-        ofxDatGuiMatrixButton* mLastItemSelected;
+        ofxDatGuiMatrixButton* mLastItemSelected = nullptr;
 };
 
 

@@ -793,7 +793,7 @@ void ofxDatGui::onInternalEventCallback(ofxDatGuiInternalEvent e)
     layout, position, anchor and check for focus
 */
 
-bool ofxDatGui::hitTest(ofPoint pt)
+bool ofxDatGui::hitTest(ofPoint pt) const
 {
     if (mMoving){
         return true;

@@ -124,12 +124,21 @@ class ofxDatGuiToggle : public ofxDatGuiButton {
         {
             setChecked( !mChecked );
         }
+
+        void bind(bool &val)
+        {
+            mBound = &val;
+            mChecked = val;
+        }
     
-        void setChecked(bool check)
+        void setChecked(bool check, bool dispatch = true)
         {
             if(mChecked == check) return;
+            
             mChecked = check;
-            dispatchEvent();
+            if ( mBound != nullptr ) *mBound = mChecked;
+            
+            if ( dispatch ) dispatchEvent();
         }
     
         bool getChecked()
@@ -162,6 +171,8 @@ class ofxDatGuiToggle : public ofxDatGuiButton {
             }
         }
     
+
+    
         static ofxDatGuiToggle* getInstance() { return new ofxDatGuiToggle("X"); }
     
     protected:
@@ -176,6 +187,7 @@ class ofxDatGuiToggle : public ofxDatGuiButton {
         }
     
     private:
+        bool*    mBound = nullptr;
         bool mChecked;
         shared_ptr<ofImage> radioOn;
         shared_ptr<ofImage> radioOff;

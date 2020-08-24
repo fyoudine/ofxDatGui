@@ -98,10 +98,13 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         ofxDatGuiDropdown* getDropdown(string label);
         
         // fy
+        ofxDatGuiComponent* itemSelected = nullptr;
         vector<ofxDatGuiComponent*> items;
         ofxDatGuiComponent* getComponent(string key);
         ofxDatGuiComponent* getComponent(string key, string fl);
         ofxDatGuiComponent* getComponent(ofxDatGuiType type, string label);
+
+        bool hitTest(ofPoint pt) const;
     
     private:
     
@@ -140,7 +143,6 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         void layoutGui();
     	void positionGui();
         void moveGui(ofPoint pt);
-        bool hitTest(ofPoint pt);
         void attachItem(ofxDatGuiComponent* item);
     
         void onDraw(ofEventArgs &e);

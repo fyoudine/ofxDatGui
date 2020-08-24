@@ -57,7 +57,7 @@ class ofxDatGuiThemeWireframe : public ofxDatGuiTheme{
     
         ofxDatGuiThemeWireframe()
         {
-            stripe.visible = false;
+            stripe.visible = true;
             color.label = hex(0x6E6E6E);
             color.icons = hex(0x6E6E6E);
             color.background = hex(0xFCFAFD);
