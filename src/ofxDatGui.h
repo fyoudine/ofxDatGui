@@ -141,7 +141,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
     
         void init();
         void layoutGui();
-    	void positionGui();
+        void positionGui();
         void moveGui(ofPoint pt);
         void attachItem(ofxDatGuiComponent* item);
     

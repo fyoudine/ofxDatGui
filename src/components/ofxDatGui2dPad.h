@@ -52,7 +52,7 @@ class ofxDatGui2dPad : public ofxDatGuiComponent {
             ofRemoveListener(ofEvents().windowResized, this, &ofxDatGui2dPad::onWindowResized);
         }
     
-        void setTheme(const ofxDatGuiTheme* theme)
+        void setTheme(const ofxDatGuiTheme* theme) override
         {
             setComponentStyle(theme);
             mStyle.height = theme->layout.pad2d.height;
@@ -67,7 +67,7 @@ class ofxDatGui2dPad : public ofxDatGuiComponent {
     
         void setPoint(ofPoint pt)
         {
-            if (mBounds.inside(pt)){
+            if (mBounds.inside( glm::vec3( pt.x, pt.y, pt.z ) )){
                 mPercentX = (pt.x-mBounds.x) / mBounds.width;
                 mPercentY = (pt.y-mBounds.y) / mBounds.height;
                 setWorldCoordinates();
@@ -100,7 +100,7 @@ class ofxDatGui2dPad : public ofxDatGuiComponent {
             setWorldCoordinates();
         }
     
-        void draw()
+        void draw() override
         {
             if (!mVisible) return;
             ofPushStyle();
@@ -133,17 +133,9 @@ class ofxDatGui2dPad : public ofxDatGuiComponent {
     
         static ofxDatGui2dPad* getInstance() { return new ofxDatGui2dPad("X"); }
     
-    protected:
-    
-        void setWorldCoordinates()
+        void onMouseDrag(ofPoint m) override
         {
-            mWorld.x = mBounds.x + (mBounds.width * mPercentX);
-            mWorld.y = mBounds.y + (mBounds.height * mPercentY);
-        }
-    
-        void onMouseDrag(ofPoint m)
-        {
-            if (mPad.inside(m)){
+            if ( mPad.inside( glm::vec3( m.x, m.y, m.z ) ) ){
                 mPercentX = (m.x-mPad.x) / mPad.width;
                 mPercentY = (m.y-mPad.y) / mPad.height;
                 setWorldCoordinates();
@@ -151,7 +143,7 @@ class ofxDatGui2dPad : public ofxDatGuiComponent {
             }
         }
     
-        void onWindowResized(ofResizeEventArgs &e)
+        void onWindowResized(ofResizeEventArgs &e) override
         {
         // scale the bounds to the resized window //
             if (mScaleOnResize){
@@ -160,6 +152,15 @@ class ofxDatGui2dPad : public ofxDatGuiComponent {
                 setWorldCoordinates();
             }
         }
+    
+    protected:
+    
+        void setWorldCoordinates()
+        {
+            mWorld.x = mBounds.x + (mBounds.width * mPercentX);
+            mWorld.y = mBounds.y + (mBounds.height * mPercentY);
+        }
+    
     
     private:
         ofPoint mLocal;

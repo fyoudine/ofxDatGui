@@ -58,7 +58,7 @@ class ofxDatGuiMatrixButton : public ofxDatGuiInteractiveObject {
     
         void hitTest(ofPoint m, bool mouseDown)
         {
-            if (mRect.inside(m) && !mSelected){
+            if (mRect.inside( glm::vec3( m.x, m.y, m.z )) && !mSelected){
                 if (mouseDown){
                     mBkgdColor = colors.selected.button;
                     mLabelColor = colors.selected.label;
@@ -99,7 +99,7 @@ class ofxDatGuiMatrixButton : public ofxDatGuiInteractiveObject {
     
         void onMouseRelease(ofPoint m)
         {
-            if (mRect.inside(m)) {
+            if (mRect.inside( glm::vec3( m.x, m.y, m.z ) )) {
                 mSelected = !mSelected;
                 ofxDatGuiInternalEvent e(ofxDatGuiEventType::MATRIX_BUTTON_TOGGLED, mIndex);
                 internalEventCallback(e);
@@ -121,8 +121,6 @@ class ofxDatGuiMatrixButton : public ofxDatGuiInteractiveObject {
         }
     
     private:
-        int x;
-        int y;
         int mIndex;
         ofPoint origin;
         ofRectangle mRect;
@@ -204,7 +202,7 @@ class ofxDatGuiMatrix : public ofxDatGuiComponent {
     
         bool hitTest(ofPoint m)
         {
-            if (mMatrixRect.inside(m)){
+            if (mMatrixRect.inside( glm::vec3( m.x, m.y, m.z ) )){
                 for(int i=0; i<btns.size(); i++) btns[i].hitTest(m, mMouseDown);
                 return true;
             }   else{

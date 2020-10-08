@@ -137,8 +137,10 @@ class ofxDatGuiColorPicker : public ofxDatGuiTextInput {
             }
         }
     
-        bool hitTest(ofPoint m)
+        bool hitTest(ofPoint ofm)
         {
+            glm::vec3 m( ofm.x, ofm.y, ofm.z );
+            
             if (mInput.hitTest(m)){
                 return true;
             }   else if (mShowPicker && pickerRect.inside(m)){

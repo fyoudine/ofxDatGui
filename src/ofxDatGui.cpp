@@ -77,7 +77,7 @@ void ofxDatGui::init()
     ofAddListener(ofEvents().windowResized, this, &ofxDatGui::onWindowResized, OF_EVENT_ORDER_BEFORE_APP);
 }
 
-/* 
+/*
     public api
 */
 
@@ -164,7 +164,7 @@ void ofxDatGui::setOpacity(float opacity)
 
 void ofxDatGui::setPosition(int x, int y)
 {
-    moveGui(ofPoint(x, y));
+    moveGui(glm::vec2(x, y));
 }
 
 void ofxDatGui::setPosition(ofxDatGuiAnchor anchor)
@@ -236,7 +236,7 @@ string ofxDatGui::getAssetPath()
     return ofxDatGuiTheme::AssetPath;
 }
 
-/* 
+/*
     add component methods
 */
 
@@ -251,7 +251,7 @@ ofxDatGuiHeader* ofxDatGui::addHeader(string label, bool draggable)
             items.insert(items.begin(), mGuiHeader);
         }
         layoutGui();
-	}
+    }
     return mGuiHeader;
 }
 
@@ -262,7 +262,7 @@ ofxDatGuiFooter* ofxDatGui::addFooter()
         items.push_back(mGuiFooter);
         mGuiFooter->onInternalEvent(this, &ofxDatGui::onInternalEventCallback);
         layoutGui();
-	}
+    }
     return mGuiFooter;
 }
 
@@ -798,7 +798,7 @@ bool ofxDatGui::hitTest(ofPoint pt) const
     if (mMoving){
         return true;
     }   else{
-        return mGuiBounds.inside(pt);
+        return mGuiBounds.inside(glm::vec3( pt.x, pt.y, pt.z ));
     }
 }
 
@@ -857,7 +857,7 @@ void ofxDatGui::positionGui()
     mGuiBounds = ofRectangle(mPosition.x, mPosition.y, mWidth, mHeight);
 }
 
-/* 
+/*
     update & draw loop
 */
 
@@ -883,7 +883,7 @@ void ofxDatGui::update()
     
     // check for gui focus change //
     if (ofGetMousePressed() && mActiveGui->mMoving == false){
-        ofPoint mouse = ofPoint(ofGetMouseX(), ofGetMouseY());
+        glm::vec2 mouse = glm::vec2(ofGetMouseX(), ofGetMouseY());
         for (int i=mGuis.size()-1; i>-1; i--){
         // ignore guis that are invisible //
             if (mGuis[i]->getVisible() && mGuis[i]->hitTest(mouse)){
@@ -914,7 +914,7 @@ void ofxDatGui::update()
                         if (mGuiHeader != nullptr && mGuiHeader->getDraggable() && mGuiHeader->getFocused()){
                     // track that we're moving to force preserve focus //
                             mMoving = true;
-                            ofPoint mouse = ofPoint(ofGetMouseX(), ofGetMouseY());
+                            glm::vec2 mouse = glm::vec2(ofGetMouseX(), ofGetMouseY());
                             moveGui(mouse - mGuiHeader->getDragOffset());
                         }
                     }   else if (items[i]->getIsExpanded()){
